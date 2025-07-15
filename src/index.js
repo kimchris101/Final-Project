@@ -32,11 +32,12 @@ function formatDate(date) {
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
+searchCity("Tokyo");
+
 function search(event) {
   event.preventDefault();
-  let searchInputElement = document.querySelector("#search-input");
-  let cityElement = document.querySelector("#current-city");
-  cityElement.innerHTML = searchInputElement.value;
+  let searchInput = document.querySelector("#search-input");
+ 
   searchCity(searchInput.value);
 }
 
@@ -46,5 +47,13 @@ function searchCity(city) {
   axios.get(apiUrl).then(refreshWeather);
 }
 
+function refreshWeather(response) {
+  let temperatureElement = document.querySelector("#temperature");
+  let temperature = response.data.temperature.current;
+  let cityElement = document.querySelector("#current-city");
+
+  cityElement.innerHTML = response.data.city;
+  temperatureElement.innerHTML = Math.round(temperature);
+}
 
 
