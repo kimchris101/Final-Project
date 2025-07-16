@@ -40,17 +40,26 @@ function refreshWeather(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
-  let timeElement = document.querySelector("#time");
-    timeElement.innerHTML = formatDate(date);
-
 
 
 }
 
-
+let currentDateELement = document.querySelector("#current-date");
+let currentDate = new Date();
+currentDateELement.innerHTML = formatDate(currentDate);
+  
  function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
+  let day = date.getDay();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
   let days = [
     "Sunday",
     "Monday",
@@ -60,7 +69,9 @@ function refreshWeather(response) {
     "Friday",
     "Saturday",
   ];
-  let day = days[date.getDay()];
+ 
+  let formattedDay = days[day];
+  return `${formattedDay} ${hours}:${minutes}`;
 
-  return `${day}${hours}:${minutes}`;
+  
 }
