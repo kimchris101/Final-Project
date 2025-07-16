@@ -40,15 +40,14 @@ function refreshWeather(response) {
   let iconElement = document.querySelector("#icon");
   iconElement.innerHTML = `<img src="${response.data.condition.icon_url}" class="weather-app-icon" />`;
 
+  let timeElement = document.querySelector("#time");
+  let date = new Date(response.data.time * 1000);
+  timeElement.innerHTML = formatDate(date);
 
   getForecast(response.data.city);
 
 }
 
-let currentDateELement = document.querySelector("#current-date");
-let currentDate = new Date();
-currentDateELement.innerHTML = formatDate(currentDate);
-  
  function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
